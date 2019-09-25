@@ -33,20 +33,18 @@ public class GameController {
     private String playGameType(String gameTypeStr){
         GameType gameType = new GameTypeFactory().getGameType(gameTypeStr);
         Game diceGame;
+        String gameStr = "";
         try{
             if(gameType != null) {
                 diceGame =gameType.buildGame();
-                diceGame.playGame();
+                gameStr = gameStr.concat(diceGame.playGame());
             }else
                 throw new IllegalGameTypeException("There is no such game: " + gameTypeStr);
 
-        }catch (IllegalGameTypeException e){
-            return "An IllegalGameTypeException was thrown :" + e.getMessage();
-        }catch (IllegalPrinterTypeException e){
-            return "An IllegalPrinterTypeException was thrown :"+ e.getMessage();
-        }catch (IllegalCountException e){
-            return "An IllegalCountException was thrown! :" + e.getMessage();
+        }catch (IllegalGameTypeException | IllegalPrinterTypeException | IllegalCountException e) {
+            e.printStackTrace();
+            return "Error";
         }
-        return diceGame.endGame();
+        return gameStr + diceGame.endGame();
     }
 }

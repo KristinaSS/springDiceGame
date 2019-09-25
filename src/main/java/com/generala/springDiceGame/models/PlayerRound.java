@@ -26,7 +26,7 @@ PlayerRound {
 
     //public methods
 
-    public void playPlayerRound() {
+    public String playPlayerRound() {
         int oldScore = player.getScore();
 
         player.rollDice();
@@ -36,10 +36,8 @@ PlayerRound {
         if (maxRoundScore > 0) {
             player.getPlayedCombinationsSet().add(comboForMaxScore);
             player.setScore(player.getScore() + maxRoundScore);
-            printRound(oldScore);
-            return;
         }
-        printRound(oldScore);
+        return printRound(oldScore);
     }
 
     //caller methods
@@ -69,16 +67,16 @@ PlayerRound {
         updateRoundScoreIfDoublePairValid(pair, secondPair);
     }
 
-    private void printRound(int oldScore) {
-
-        System.out.println(">>> round: " + round);
-        System.out.println(">player " + player.getPlayerNumber() + ":");
-        System.out.println("current score: " + oldScore);
-        System.out.println("dice roll:" + DiceRolled.rolledDiceListToString() + "-> " + (comboForMaxScore != null ?
-                comboForMaxScore.getLabel() :
-                "No combination") + " (" + maxRoundScore + ") ");
-        System.out.println("new score: " + player.getScore());
-        System.out.println();
+    private String printRound(int oldScore) {
+        return ">>> round: " + round + "<br>" +
+                ">player " + player.getPlayerNumber() + ":" + "<br>" +
+                "current score: " + oldScore + "<br>" +
+                "dice roll:" + DiceRolled.rolledDiceListToString() + "-> " + (comboForMaxScore != null
+                        ? comboForMaxScore.getLabel()
+                        : "No combination") +
+                " (" + maxRoundScore + ") " + "<br>" +
+                "new score: " + player.getScore() + "<br>" +
+                "<br>";
     }
 
     private void updateRoundScore(int score, CombinationEnum combo) {

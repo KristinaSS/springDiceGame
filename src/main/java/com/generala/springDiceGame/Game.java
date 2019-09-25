@@ -23,26 +23,29 @@ public class Game {
 
     //play or end Game
 
-    public void playGame() {
+    public String playGame() {
+        StringBuilder gameRounds =new StringBuilder();
+
         DiceRolled.setNumberOfDice();
 
         PlayerRound currentPlayerRound;
 
 
-        System.out.println(">>> WELCOME TO THE DICE GAME <<<");
+        gameRounds.append(">>> WELCOME TO THE DICE GAME <<<" + "<br>");
 
         for (int curRound = 1; curRound <= rounds; curRound++) {
             for (Player player : playerList) {
 
                 currentPlayerRound = new PlayerRound(player, curRound);
 
-                currentPlayerRound.playPlayerRound();
+                gameRounds.append(currentPlayerRound.playPlayerRound());
 
                 if (player.getPlayedCombinationsSet().contains(CombinationEnum.GENERALA)) {
-                    return;
+                    return gameRounds.toString();
                 }
             }
         }
+        return gameRounds.toString();
     }
 
     public String endGame() {

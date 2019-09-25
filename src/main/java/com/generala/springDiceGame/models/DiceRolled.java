@@ -13,13 +13,6 @@ public class DiceRolled {
 
     private final static Map<Integer, Integer> timesRepeatedEachDice = new TreeMap<>(Collections.reverseOrder());
 
- /*   static {
-        for (int i = 0; i < numberOfDice; i++) {
-            diceRolled.add(new Die());
-        }
-    }*/
-    // getters and setters and constructors
-
     private DiceRolled() {
     }
 
@@ -34,7 +27,7 @@ public class DiceRolled {
     public static void setNumberOfDice() {
         DiceRolled.numberOfDice = Integer.parseInt(GameUtils.getPropertyFromPropFile(CommonConstants.DICE_COUNT_STR));
 
-        if(numberOfDice<1)
+        if (numberOfDice < 1)
             throw new IllegalCountException("Your dice count needs to be larger than 0");
 
         for (int i = 0; i < numberOfDice; i++) {

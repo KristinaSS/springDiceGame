@@ -4,10 +4,10 @@ import com.generala.springDiceGame.Game;
 import com.generala.springDiceGame.exceptions.IllegalCountException;
 import com.generala.springDiceGame.exceptions.IllegalGameTypeException;
 import com.generala.springDiceGame.exceptions.IllegalPrinterTypeException;
+import com.generala.springDiceGame.utils.gametypefactory.CustomGame;
 import com.generala.springDiceGame.utils.gametypefactory.GameType;
 import com.generala.springDiceGame.utils.gametypefactory.GameTypeFactory;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class GameController {
@@ -21,13 +21,25 @@ public class GameController {
     @RequestMapping("/shortGame")
     public String playShortGame(){
         String gameTypeString = "short";
+
         return playGameType(gameTypeString);
     }
 
     @RequestMapping("/longGame")
     public String playLongGame(){
         String gameTypeString = "long";
+
         return playGameType(gameTypeString);
+    }
+
+    @RequestMapping(value = "/custom/players-{numP}/rounds-{numR}",method = RequestMethod.GET)
+    @ResponseBody
+    public String createCustomGame(@PathVariable ("numP") String numP, @PathVariable("numR")String numR){
+        CustomGame.setCustomGamePlayerCount(Integer.parseInt(numP));
+        CustomGame.setCustomGameRounds(Integer.parseInt(numR));
+        String gameTypeStr = "custom";
+
+        return playGameType(gameTypeStr);
     }
 
     private String playGameType(String gameTypeStr){

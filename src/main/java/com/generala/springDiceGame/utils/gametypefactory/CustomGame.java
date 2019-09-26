@@ -5,16 +5,26 @@ import com.generala.springDiceGame.Game;
 import com.generala.springDiceGame.exceptions.IllegalCountException;
 
 public class CustomGame implements GameType{
+    private static int customGamePlayerCount;
+    private static int customGameRounds;
     @Override
     public Game buildGame() {
-        if(CUSTOM_GAME_PLAYER_COUNT<1)
+        if (customGamePlayerCount < 1)
             throw new IllegalCountException("Your player count must be larger than 0");
-        if(CUSTOM_GAME_ROUNDS<1)
+        if (customGameRounds < 1)
             throw new IllegalCountException("Your round count must be larger than 0");
 
         return new Game.Builder()
-                .setRounds(CUSTOM_GAME_ROUNDS)
-                .setPlayerList(CUSTOM_GAME_PLAYER_COUNT)
+                .setRounds(customGameRounds)
+                .setPlayerList(customGamePlayerCount)
                 .build();
+    }
+
+    public static void setCustomGamePlayerCount(int customGamePlayerCount) {
+        CustomGame.customGamePlayerCount = customGamePlayerCount;
+    }
+
+    public static void setCustomGameRounds(int customGameRounds) {
+        CustomGame.customGameRounds = customGameRounds;
     }
 }

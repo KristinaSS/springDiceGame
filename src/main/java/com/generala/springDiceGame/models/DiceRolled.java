@@ -16,8 +16,8 @@ public class DiceRolled {
     private DiceRolled() {
     }
 
-    static Map<Integer, Integer> getTimesRepeatedEachDice() {
-        return timesRepeatedEachDice;
+    public static Map<Integer, Integer> getTimesRepeatedEachDice() {
+        return new TreeMap<>(timesRepeatedEachDice);
     }
 
     public static int getNumberOfDice() {
@@ -26,7 +26,6 @@ public class DiceRolled {
 
     public static void setNumberOfDice() {
         DiceRolled.numberOfDice = Integer.parseInt(GameUtils.getPropertyFromPropFile(CommonConstants.DICE_COUNT_STR));
-
         if (numberOfDice < 1)
             throw new IllegalCountException("Your dice count needs to be larger than 0");
 
@@ -35,37 +34,7 @@ public class DiceRolled {
         }
     }
 
-    // other methods
-
-    static void rollAllDice() {
-        timesRepeatedEachDice.clear();
-
-        int dieSide;
-
-        for (Die die : diceRolled) {
-            dieSide = die.rollDie();
-
-            timesRepeatedEachDice.put(dieSide, timesRepeatedEachDice.getOrDefault(dieSide, 0) + 1);
-        }
-
+    public static List<Die> getDiceRolled() {
+        return diceRolled;
     }
-
-    static String rolledDiceListToString() {
-        diceRolled.sort(Comparator.comparingInt(Die::getDieSide));
-        StringBuilder diceRolledSB = new StringBuilder(" ");
-        for (Die die : diceRolled) {
-            diceRolledSB.append(die.getDieSide()).append(", ");
-        }
-        return diceRolledSB.toString();
-    }
-
-    static int findFirstValueGreaterThanOrEqualTo(int compareBy) {
-        for (Map.Entry<Integer, Integer> entry : timesRepeatedEachDice.entrySet()) {
-            if (entry.getValue() >= compareBy) {
-                return entry.getKey();
-            }
-        }
-        return -1;
-    }
-
 }

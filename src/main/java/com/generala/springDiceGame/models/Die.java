@@ -5,22 +5,20 @@ import com.generala.springDiceGame.utils.GameUtils;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-class Die {
+public class Die {
     private int dieSide;
 
-    static final int numberOfSides = Integer
+    public static final int numberOfSides = Integer
             .parseInt(GameUtils.readPropertiesFile().getProperty(CommonConstants.NUMBER_OF_SIDES_STR));
 
-    Die() {
+    public Die() {
     }
 
-    int getDieSide() {
+    public int getDieSide() {
         return dieSide;
     }
 
-    int rollDie() {
-        dieSide = ThreadLocalRandom.current().nextInt(numberOfSides) + 1;
-        return dieSide;
+    public void setDieSide(int dieSide) {
+        this.dieSide = dieSide;
     }
-
 }

@@ -1,7 +1,7 @@
 package com.generala.springDiceGame.utils.gametypefactory;
 
 
-import com.generala.springDiceGame.Game;
+import com.generala.springDiceGame.models.Game;
 import com.generala.springDiceGame.exceptions.IllegalCountException;
 
 public class CustomGame implements GameType{

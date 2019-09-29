@@ -1,6 +1,7 @@
 package com.generala.springDiceGame.models;
 
 import com.generala.springDiceGame.constants.CombinationEnum;
+import com.generala.springDiceGame.gameservices.DiceRolledService;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -29,12 +30,12 @@ public final class Player implements Comparable<Player> {
         return score;
     }
 
-    void setScore(int score) {
+    public void setScore(int score) {
         this.score = score;
     }
 
-    void rollDice() {
-        DiceRolled.rollAllDice();
+    public void rollDice() {
+        DiceRolledService.rollAllDice();
     }
 
     @Override

@@ -1,9 +1,7 @@
 package com.generala.springDiceGame.utils.gametypefactory;
 
 
-import com.generala.springDiceGame.Game;
-import com.generala.springDiceGame.constants.CommonConstants;
-import com.generala.springDiceGame.utils.GameUtils;
+import com.generala.springDiceGame.models.Game;
 
 public interface GameType {
     int SHORT_GAME_ROUNDS = 10;

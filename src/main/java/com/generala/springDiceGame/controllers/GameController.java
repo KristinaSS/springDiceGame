@@ -1,6 +1,7 @@
 package com.generala.springDiceGame.controllers;
 
-import com.generala.springDiceGame.Game;
+import com.generala.springDiceGame.gameservices.GameService;
+import com.generala.springDiceGame.models.Game;
 import com.generala.springDiceGame.exceptions.IllegalCountException;
 import com.generala.springDiceGame.exceptions.IllegalGameTypeException;
 import com.generala.springDiceGame.exceptions.IllegalPrinterTypeException;
@@ -15,7 +16,8 @@ public class GameController {
     public String home(){
         return "Welcome to Generala Dice game <br>" +
                 "write /shortGame to generate a short game <br>" +
-                "write /longGame to generate a long game <br>";
+                "write /longGame to generate a long game <br>" +
+                "write /custom ... to generate a custom game<br>";
     }
 
     @RequestMapping("/shortGame")
@@ -44,12 +46,13 @@ public class GameController {
 
     private String playGameType(String gameTypeStr){
         GameType gameType = new GameTypeFactory().getGameType(gameTypeStr);
+        GameService gameService = new GameService();
         Game diceGame;
         String gameStr = "";
         try{
             if(gameType != null) {
                 diceGame =gameType.buildGame();
-                gameStr = gameStr.concat(diceGame.playGame());
+                gameStr = gameStr.concat(gameService.playGame(diceGame.getRounds(),diceGame.getPlayerList()));
             }else
                 throw new IllegalGameTypeException("There is no such game: " + gameTypeStr);
 
@@ -57,6 +60,6 @@ public class GameController {
             e.printStackTrace();
             return "Error";
         }
-        return gameStr + diceGame.endGame();
+        return gameStr + gameService.endGame(diceGame.getPlayerList());
     }
 }
